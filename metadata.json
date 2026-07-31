@@ -1,0 +1,6 @@
+{
+  "name": "ChurnGuard - Churn Prediction System",
+  "description": "Enterprise customer churn prediction platform with machine learning model scoring, risk analytics, segment cohort analysis, and automated retention workflows.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

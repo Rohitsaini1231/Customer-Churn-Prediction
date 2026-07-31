@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      target: runner
+    container_name: churn_prediction_backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - FLASK_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "python -c 'import urllib.request; urllib.request.urlopen(\"http://localhost:5000/health\")'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - churn_net
+
+  frontend:
+    build:
+      context: .
+      target: runner
+    container_name: churn_prediction_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=5000
+      - VITE_API_URL=http://backend:5000
+    depends_on:
+      backend:
+        condition: service_started
+    restart: unless-stopped
+    networks:
+      - churn_net
+
+networks:
+  churn_net:
+    driver: bridge
