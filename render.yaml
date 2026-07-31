@@ -2,8 +2,6 @@ services:
   - type: web
     name: customer-churn-prediction-backend
     runtime: python
+    rootDir: backend
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn backend.app:app
-    envVars:
-      - key: PORT
-        value: 10000
+    startCommand: gunicorn app:app
